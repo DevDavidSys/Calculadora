@@ -26,22 +26,22 @@ const StyledButton = styled.div`
 
 function App() {
   const [display,setDisplay] = useState("");
-  const [n1,setN1] = useState('');
-  const [n2,setN2] = useState('');
-  const [operator,setOperator] = useState('');
+  const [n1,setNone] = useState('');
+  const [n2,setNtwo] = useState('');
+  const [operator,  ] = useState('');
   let stage = 1;
 
   const teclas = ['(',')','%','AC','7','8','9','/','4','5','6','*','1','2','3','-','0','.','=','+'];
   const operators = ['+','-','/','*'];
   const numbers = ['7','8','9','4','5','6','1','2','3','0']
-  const calc_functions = ['(',')','AC','%','=']
+  const calc_functions = ['(',')','AC','%','=','']
 
   function handleClick(item){
     if(calc_functions.includes(item)){
       if(item == '='){
         alert(`${n1},${operator},${n2}`);
-        setN1('');
-        setN2('');
+        setNone('');
+        setNtwo('');
         setOperator('');
         setDisplay('');
       }
@@ -76,6 +76,7 @@ function App() {
 
     }*/
   }
+  
   let buttons = [];
   teclas.map(item => {
     buttons.push(<button className='button' onClick={()=>handleClick(item)}>{item}</button>);
