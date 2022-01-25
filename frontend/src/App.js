@@ -1,20 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
 import React,{useState} from 'react';
-
+import api from './services/api/axios';
 
 
 function App() {
   const [display,setDisplay] = useState('');
   
   const [expression, setExpression ] = useState('');
+  const [operation, setOperation] = useState('');
   const [stage,setStage] = useState(0);
 
   const teclas = ['(',')','%','AC','7','8','9','/','4','5','6','*','1','2','3','-','0','.','=','+'];
   const operators = ['+','-','/','*'];
   const numbers = ['7','8','9','4','5','6','1','2','3','0']
   const calc_functions = ['(',')','AC','%','=','']
-
  
   
   let buttons = [];
@@ -52,19 +52,27 @@ function App() {
     }
     
     else if(operators.includes(item)){
-      setExpression(expression + item);
+      setExpression(expression +' '+ item+ ' ');
       
     }
   
 
   }
 
-  const handleSubmit = ()=>{
-    //envia os dados para o servidor
-    let send = JSON.stringify({expression});
-    alert(send);
-        
-  }
+    async function handleSubmit (){
+      //envia os dados para o servidor
+      try{
+        let send = JSON.stringify({expression: expression,auth:1});
+        let options = {'Content-Type': 'application/json'}
+        alert(send);
+      
+        await api.post('test',send,{headers:{'Content-Type': 'application/json'}}).then(res=>{if(res){alert('Dados enviados com sucesso')}})
+      }
+      catch(e){
+        alert('Erro ao cadastrar')
+      }
+          
+    }
 
   return (
     <div className="App">

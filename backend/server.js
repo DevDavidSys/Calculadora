@@ -3,20 +3,27 @@ const parser = require('body-parser');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const Port = 5000;
-
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+var jsonParser = bodyParser.json()
 
 const soma = require(path.join(__dirname,'functions','soma.js'));
 const subtrair = require(path.join(__dirname,'functions','subtrair.js'));
 const dividir = require(path.join(__dirname,'functions','dividir.js'))
 const multiplicar = require(path.join(__dirname,'functions','multiplicar.js'))
-app.use(parser.json());
+app.use(cors());
 
 app.get('/',(req,res)=>{
     res.send('ola mundoaa')
 })
+app.post('/test',jsonParser,(req,res)=>{
+    console.log(req.body)
+    res.send(true)
+})
+
 app.post('/soma',(req,res)=>{
-    console.log(req.body);
+
     var result = soma(req.body.n1,req.body.n2);
     
     res.send(JSON.stringify(result));
